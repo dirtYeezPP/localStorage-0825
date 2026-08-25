@@ -13,7 +13,7 @@ function getList(){
 }
 
 function createTODO(title, completed = false, author = "guest", note = "..."){
-    const todo = {title, completed, author, note}; 
+    const todo = {title, completed, author, note, id:Date.now()}; 
     const todos = getList() //|| []; //om det inte finns något i localStorage, skapa en tom array (AI lol)
     todos.push(todo); //läggs till i slutet av arrayen 
     saveToStorage(todos); 
