@@ -7,7 +7,9 @@ function getList(){
     let list = localStorage.getItem('List'); 
 
     list = JSON.parse(list); //omvandla string till array (javascript behandlar de som objekt) igen 
-    return list; //de fof en string tho LOL 
+    return list; //de fof en string tho LOL LOL
+
+    if(!localStorage.length) return []; 
 }
 
 function createTODO(title, completed = false, author = "guest", note = "..."){
