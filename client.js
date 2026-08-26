@@ -13,6 +13,9 @@ document.querySelector(".createTodo form")
         createTODO(title, author, note); 
     })
 
+//fixa en funktion som tar bort mellanslag även i mitten... myballs noor ill strangle u 
+// skapa en lista eller nå bullshit idr 
+
 function saveToStorage(data){
     const json = JSON.stringify(data); 
     localStorage.setItem('List', json); 
