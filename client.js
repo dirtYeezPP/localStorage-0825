@@ -1,9 +1,25 @@
+
+//css selector yus, we go into a div and we pick the form only from there
+document.querySelector(".createTodo form")
+    .addEventListener("submit", e=>{
+        e.preventDefault(); // stoppar serverfunktionalitet rawr (sidan laddas inte om och vi får saken i console)
+        // target --> our form! our inputs!! 
+
+        //console.log(e.target.title.value); //då får vi input rutan i konsollen men vi vill ha innehållet (value)
+        const title = e.target.title.value.trim(); //trims only in beginning and end 
+        if(!title) return alert("title is required"); 
+        const author = e.target.author.value;
+        const note = e.target.note.value;  //check why ts affects the 'completed' variable... im nub 
+        createTODO(title, author, note); 
+    })
+
 function saveToStorage(data){
     const json = JSON.stringify(data); 
     localStorage.setItem('List', json); 
 }
 
 function getList(){
+
     let list = localStorage.getItem('List'); 
     if(!localStorage.length) return [];
 
