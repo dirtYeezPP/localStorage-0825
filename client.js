@@ -23,6 +23,8 @@ document.querySelector(".createTodo form")
 
 // fixa en funktion som tar bort mellanslag även i mitten... myballs noor ill strangle u 
 // skapa en lista eller nå bullshit idr 
+// make an input type checkbox 
+
 
 /**
  * 
