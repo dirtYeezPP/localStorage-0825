@@ -1,4 +1,7 @@
 
+printTodos(getList()); //we want ts on the page all the time!!! 
+
+
 //css selector yus, we go into a div and we pick the form only from there
 document.querySelector(".createTodo form")
     .addEventListener("submit", e=>{
