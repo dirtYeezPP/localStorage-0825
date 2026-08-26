@@ -1,5 +1,6 @@
 
 printTodos(getList()); //we want ts on the page all the time!!! 
+//nu kommer inte en ny när vi skapar en ny dock... GAYYYY SKILL ISSUSEEEE
 
 
 //css selector yus, we go into a div and we pick the form only from there
@@ -87,6 +88,7 @@ function createTODO(title, completed = false, author = "guest", note = "..."){ /
     const todos = getList() || []; //om det inte finns något i localStorage, skapa en tom array (AI lol)
     todos.push(todo); //läggs till i slutet av arrayen 
     saveToStorage(todos); 
+    printTodos([todo]); 
 }
 
 function deleteTODO(id){
