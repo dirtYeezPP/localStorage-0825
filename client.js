@@ -6,15 +6,51 @@ document.querySelector(".createTodo form")
         // target --> our form! our inputs!! 
 
         //console.log(e.target.title.value); //då får vi input rutan i konsollen men vi vill ha innehållet (value)
-        const title = e.target.title.value.trim(); //trims only in beginning and end 
+
+        //const title = e.target.title.value.trim().replace(" ", "_").replaceAll(" ", ""); //trims only in beginning and end 
+        const title = e.target.title.value.trim().replaceAll(/\s+/g, "_"); //regex, i have to look into this
+
         if(!title) return alert("title is required"); 
         const author = e.target.author.value;
-        const note = e.target.note.value;  //check why ts affects the 'completed' variable... im nub 
-        createTODO(title, author, note); 
+        const note = e.target.note.value;  
+        //const completed = false // otherwise gets the same as the author variable 
+        createTODO(title, false, author, note); 
     })
 
-//fixa en funktion som tar bort mellanslag även i mitten... myballs noor ill strangle u 
+// fixa en funktion som tar bort mellanslag även i mitten... myballs noor ill strangle u 
 // skapa en lista eller nå bullshit idr 
+
+/**
+ * 
+ * @param {object} todo - todo   
+ */
+
+//skapa en todo som html 
+function makeTodoEl(todo){ 
+    const div = document.createElement('div');
+    div.classList.add("todo"); // for CSS purposes 
+
+    const title = document.createElement('h3'); 
+    title.innerText = todo.title; 
+    const author = document.createElement('i');
+    author.innerText = todo.author;
+    const note = document.createElement('p'); 
+    note.innerText = todo.note; 
+
+    div.appendChild(title); 
+    div.appendChild(author);
+    div.appendChild(note); 
+    return div; 
+}
+
+
+function printTodos(todos){
+    const todosBox = document.querySelector(".todos");
+    for(let todo of todos){
+        todosBox.appendChild(makeTodoEl(todo)); 
+    }
+}
+
 
 function saveToStorage(data){
     const json = JSON.stringify(data); 
@@ -30,13 +66,22 @@ function getList(){
     return list; //de fof en string tho LOL 
 }
 
+
+//js docs 
+/**
+ * @param {string} title - title
+ * @param {boolean} completed - completed 
+ * @param {string} author - author
+ * @param {string} note - note 
+ */
+
 function createTODO(title, completed = false, author = "guest", note = "..."){ //variabler (vissa med standardvärden, behöver ej fyllas i)
 
     if(!title) return console.log("title is required");  //guard clause 
 
     const todo = {title, completed, author, note, id:Date.now()}; 
 
-    const todos = getList() //|| []; //om det inte finns något i localStorage, skapa en tom array (AI lol)
+    const todos = getList() || []; //om det inte finns något i localStorage, skapa en tom array (AI lol)
     todos.push(todo); //läggs till i slutet av arrayen 
     saveToStorage(todos); 
 }
