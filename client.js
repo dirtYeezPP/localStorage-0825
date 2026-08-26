@@ -5,19 +5,39 @@ function saveToStorage(data){
 
 function getList(){
     let list = localStorage.getItem('List'); 
+    if(!localStorage.length) return [];
 
     list = JSON.parse(list); //omvandla string till array (javascript behandlar de som objekt) igen 
-    return list; //de fof en string tho LOL LOL
-
-    if(!localStorage.length) return []; 
+    return list; //de fof en string tho LOL 
 }
 
-function createTODO(title, completed = false, author = "guest", note = "..."){
+function createTODO(title, completed = false, author = "guest", note = "..."){ //variabler (vissa med standardvärden, behöver ej fyllas i)
+
+    if(!title) return console.log("title is required");  //guard clause 
+
     const todo = {title, completed, author, note, id:Date.now()}; 
+
     const todos = getList() //|| []; //om det inte finns något i localStorage, skapa en tom array (AI lol)
     todos.push(todo); //läggs till i slutet av arrayen 
     saveToStorage(todos); 
 }
+
+function deleteTODO(id){
+    //vi skapar en ny lista, vi muterar inte den första
+    //functional programming --> här vill man undvika mutation (ändra befintlig variabel), were cooked we have push 
+    //istället för in i for loop ha of (annars får vi indexet av de inte innehållet)
+
+    //kompakt 
+    //const newTos = getList().filter(t=>t.id!=id); --> ts is very piped version yes
+
+    const todos = getList();
+    const newTos = todos.filter(t=>t.id!=id); 
+    if(todos.length == newTos.length) console.log("nun is deleted"); 
+
+    saveToStorage(newTos);
+
+}
+
 
 // const, let, (var), 
 // från början fanns bara var
